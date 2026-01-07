@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { HashRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { App as CapacitorApp } from '@capacitor/app';
 import Sidebar from './components/Sidebar';
 import BackButton from './components/BackButton';
 import Home from './pages/Home';
@@ -30,8 +31,28 @@ const TvNavigationController: React.FC = () => {
 
 const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const location = useLocation();
+  const navigate = useNavigate();
   // Strictly check for /watch/ to avoid hiding sidebar on /watchlist
   const isPlayer = location.pathname.startsWith('/watch/');
+
+  useEffect(() => {
+    // Handle Android hardware back button
+    const handleBackButton = async () => {
+      await CapacitorApp.addListener('backButton', ({ canGoBack }) => {
+        if (location.pathname === '/' || location.pathname === '/home') {
+          CapacitorApp.exitApp();
+        } else {
+          navigate(-1);
+        }
+      });
+    };
+
+    handleBackButton();
+
+    return () => {
+      CapacitorApp.removeAllListeners();
+    };
+  }, [location.pathname, navigate]);
 
   return (
     <div className="min-h-screen w-screen bg-slate-950 text-white overflow-hidden font-sans antialiased selection:bg-red-500 selection:text-white">
@@ -56,10 +77,10 @@ const App: React.FC = () => {
           <Route path="/tv" element={<TvShows />} />
           <Route path="/watchlist" element={<Watchlist />} />
           {/* Support legacy /movie/:id route if needed, or redirect */}
-          <Route path="/movie/:id" element={<Details />} /> 
+          <Route path="/movie/:id" element={<Details />} />
           {/* New Unified Details Route */}
           <Route path="/details/:type/:id" element={<Details />} />
-          
+
           <Route path="/watch/:id" element={<Player />} />
         </Routes>
       </AppLayout>

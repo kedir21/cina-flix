@@ -15,7 +15,7 @@ const BackButton: React.FC = () => {
   return (
     <button
       onClick={() => navigate(-1)}
-      className="fixed top-6 right-8 z-50 flex items-center gap-2 px-4 py-2 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-white hover:bg-white/20 hover:border-white/30 hover:scale-105 transition-all duration-200 focusable tv-focus shadow-lg group"
+      className="fixed top-6 right-8 z-50 flex items-center gap-2 px-4 py-2 rounded-full bg-slate-950 border border-white/10 text-white hover:bg-white/20 hover:border-white/30 hover:scale-105 transition-all duration-200 focusable tv-focus shadow-lg group"
       aria-label="Go Back"
     >
       <ArrowLeft size={20} className="group-hover:-translate-x-0.5 transition-transform" />

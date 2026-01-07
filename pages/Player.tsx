@@ -41,10 +41,10 @@ const Player: React.FC = () => {
   // Handle Back button to exit
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-        if (e.key === NavigationDirection.ESCAPE || e.key === NavigationDirection.BACK) {
-            e.preventDefault();
-            navigate(-1);
-        }
+      if (e.key === NavigationDirection.ESCAPE || e.key === NavigationDirection.BACK) {
+        e.preventDefault();
+        navigate(-1);
+      }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
@@ -52,7 +52,7 @@ const Player: React.FC = () => {
 
   // Focus the back button initially so keyboard user can exit if needed
   useEffect(() => {
-      document.getElementById('player-back-btn')?.focus();
+    document.getElementById('player-back-btn')?.focus();
   }, []);
 
   if (!id) return null;
@@ -65,10 +65,10 @@ const Player: React.FC = () => {
       }
       return `https://rivestream.org/embed?type=movie&id=${id}`;
     }
-    
+
     // Vidsrc fallback logic
     if (type === 'tv') {
-        return `https://vidsrc.cc/v2/embed/tv/${id}/${season}/${episode}`;
+      return `https://vidsrc.cc/v2/embed/tv/${id}/${season}/${episode}`;
     }
     return `https://vidsrc.cc/v2/embed/movie/${id}`;
   };
@@ -88,25 +88,25 @@ const Player: React.FC = () => {
       />
 
       {/* Overlay UI */}
-      <div 
+      <div
         className={`absolute inset-0 pointer-events-none transition-opacity duration-500 bg-gradient-to-b from-black/80 via-transparent to-transparent h-40 ${showControls ? 'opacity-100' : 'opacity-0'}`}
       >
         <div className="p-8 pointer-events-auto flex items-start justify-between">
           <div className="flex gap-4">
-              <button 
-                id="player-back-btn"
-                onClick={() => navigate(-1)}
-                className="focusable tv-focus flex items-center gap-3 text-white px-6 py-3 rounded-lg bg-white/10 hover:bg-white/20 backdrop-blur-md transition-all focus:ring-2 focus:ring-white focus:outline-none"
-              >
-                <ArrowLeft />
-                <span className="font-semibold tracking-wide">Back</span>
-              </button>
-              
-              {type === 'tv' && (
-                  <div className="px-6 py-3 rounded-lg bg-black/50 text-white font-mono backdrop-blur-md border border-white/10">
-                    S{season} : E{episode}
-                  </div>
-              )}
+            <button
+              id="player-back-btn"
+              onClick={() => navigate(-1)}
+              className="focusable tv-focus flex items-center gap-3 text-white px-6 py-3 rounded-lg bg-black/60 hover:bg-white/20 transition-all focus:ring-2 focus:ring-white focus:outline-none"
+            >
+              <ArrowLeft />
+              <span className="font-semibold tracking-wide">Back</span>
+            </button>
+
+            {type === 'tv' && (
+              <div className="px-6 py-3 rounded-lg bg-black/80 text-white font-mono border border-white/10">
+                S{season} : E{episode}
+              </div>
+            )}
           </div>
 
           {/* Source Selector */}

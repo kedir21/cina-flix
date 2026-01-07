@@ -19,7 +19,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, onClick, className = '' })
 
   useEffect(() => {
     const checkStatus = () => setInWatchlist(watchlistService.isInWatchlist(movie.id));
-    
+
     checkStatus();
     window.addEventListener('watchlist-updated', checkStatus);
     return () => window.removeEventListener('watchlist-updated', checkStatus);
@@ -31,7 +31,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, onClick, className = '' })
   };
 
   return (
-    <div 
+    <div
       className={`focusable tv-focus relative flex-shrink-0 w-48 md:w-56 aspect-[2/3] rounded-lg overflow-hidden cursor-pointer group bg-gray-800 border-2 border-transparent focus:border-white focus:z-20 ${className}`}
       onClick={onClick}
       role="button"
@@ -40,16 +40,16 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, onClick, className = '' })
         if (e.key === 'Enter') onClick();
       }}
     >
-      <img 
-        src={getPosterUrl(movie.poster_path)} 
+      <img
+        src={getPosterUrl(movie.poster_path)}
         alt={title}
         loading="lazy"
         className="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-80"
       />
-      
+
       {/* Type Badge */}
       {movie.media_type === 'tv' && (
-        <div className="absolute top-2 left-2 px-2 py-0.5 bg-black/60 backdrop-blur-md rounded text-[10px] font-bold uppercase tracking-wider text-white border border-white/20">
+        <div className="absolute top-2 left-2 px-2 py-0.5 bg-black/80 rounded text-[10px] font-bold uppercase tracking-wider text-white border border-white/20">
           TV
         </div>
       )}
@@ -57,10 +57,10 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, onClick, className = '' })
       {/* Watchlist Indicator */}
       <button
         onClick={handleToggleWatchlist}
-        className={`absolute top-2 right-2 p-2 rounded-full backdrop-blur-md transition-all duration-200 z-10 
-          ${inWatchlist 
-            ? 'bg-red-600/80 text-white opacity-100' 
-            : 'bg-black/40 text-white opacity-0 group-focus:opacity-100 group-hover:opacity-100 hover:bg-red-600'
+        className={`absolute top-2 right-2 p-2 rounded-full transition-all duration-200 z-10 
+          ${inWatchlist
+            ? 'bg-red-600 text-white opacity-100'
+            : 'bg-black/60 text-white opacity-0 group-focus:opacity-100 group-hover:opacity-100 hover:bg-red-600'
           }`}
         title={inWatchlist ? "Remove from Watchlist" : "Add to Watchlist"}
       >
