@@ -26,7 +26,7 @@ const Watchlist: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-950 pl-24 pt-8 pr-8 pb-12">
+    <div className="min-h-screen bg-slate-950 pb-20 pt-8 px-4 md:pl-24 md:pt-8 md:pr-8 md:pb-12">
       <div className="flex items-center gap-4 mb-8">
         <h1 className="text-4xl font-bold text-white">My Watchlist</h1>
         <span className="bg-red-600 text-white text-sm font-bold px-3 py-1 rounded-full">
@@ -43,13 +43,13 @@ const Watchlist: React.FC = () => {
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
           {watchlist.map((item, index) => {
-             // Handle legacy items that might not have media_type set
-             const type = item.media_type || 'movie';
-             return (
-              <MovieCard 
-                key={`${item.id}-${index}`} 
-                movie={{...item, media_type: type}} 
-                onClick={() => navigate(`/details/${type}/${item.id}`)} 
+            // Handle legacy items that might not have media_type set
+            const type = item.media_type || 'movie';
+            return (
+              <MovieCard
+                key={`${item.id}-${index}`}
+                movie={{ ...item, media_type: type }}
+                onClick={() => navigate(`/details/${type}/${item.id}`)}
                 className="w-full h-full"
               />
             );

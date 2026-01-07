@@ -89,18 +89,18 @@ const Player: React.FC = () => {
 
       {/* Overlay UI */}
       {/* Persistent UI (Back Button & Info) */}
-      <div className="absolute top-0 left-0 p-8 z-20 pointer-events-auto flex items-center gap-4">
+      <div className="absolute top-0 left-0 p-4 md:p-8 z-20 pointer-events-auto flex items-center gap-2 md:gap-4">
         <button
           id="player-back-btn"
           onClick={() => navigate(-1)}
-          className="focusable tv-focus flex items-center gap-3 text-white px-6 py-3 rounded-lg bg-black/60 hover:bg-white/20 transition-all focus:ring-2 focus:ring-white focus:outline-none"
+          className="focusable tv-focus flex items-center gap-2 md:gap-3 text-white px-4 py-2 md:px-6 md:py-3 rounded-lg bg-black/60 hover:bg-white/20 transition-all focus:ring-2 focus:ring-white focus:outline-none text-sm md:text-base"
         >
-          <ArrowLeft />
-          <span className="font-semibold tracking-wide">Back</span>
+          <ArrowLeft size={20} />
+          <span className="font-semibold tracking-wide hidden md:inline">Back</span>
         </button>
 
         {type === 'tv' && (
-          <div className="px-6 py-3 rounded-lg bg-black/80 text-white font-mono border border-white/10">
+          <div className="px-3 py-2 md:px-6 md:py-3 rounded-lg bg-black/80 text-white font-mono border border-white/10 text-xs md:text-base">
             S{season} : E{episode}
           </div>
         )}
@@ -114,19 +114,19 @@ const Player: React.FC = () => {
         <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-black/80 via-transparent to-transparent" />
 
         {/* Source Selector (Top Right) */}
-        <div className="absolute top-8 right-8 pointer-events-auto flex gap-2">
+        <div className="absolute top-4 right-4 md:top-8 md:right-8 pointer-events-auto flex gap-2">
           <button
             onClick={() => setSource('vidsrc')}
-            className={`focusable tv-focus flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${source === 'vidsrc' ? 'bg-red-600 text-white' : 'bg-white/10 text-gray-300 hover:bg-white/20'}`}
+            className={`focusable tv-focus flex items-center gap-2 px-3 py-2 md:px-4 md:rounded-lg rounded transition-all text-xs md:text-sm ${source === 'vidsrc' ? 'bg-red-600 text-white' : 'bg-white/10 text-gray-300 hover:bg-white/20'}`}
           >
-            <Server size={16} />
+            <Server size={14} className="md:w-4 md:h-4" />
             <span>VidSrc</span>
           </button>
           <button
             onClick={() => setSource('rivestream')}
-            className={`focusable tv-focus flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${source === 'rivestream' ? 'bg-red-600 text-white' : 'bg-white/10 text-gray-300 hover:bg-white/20'}`}
+            className={`focusable tv-focus flex items-center gap-2 px-3 py-2 md:px-4 md:rounded-lg rounded transition-all text-xs md:text-sm ${source === 'rivestream' ? 'bg-red-600 text-white' : 'bg-white/10 text-gray-300 hover:bg-white/20'}`}
           >
-            <Server size={16} />
+            <Server size={14} className="md:w-4 md:h-4" />
             <span>RiveStream</span>
           </button>
         </div>

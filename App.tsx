@@ -55,7 +55,7 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   }, [location.pathname, navigate]);
 
   return (
-    <div className="min-h-screen w-screen bg-slate-950 text-white overflow-hidden font-sans antialiased selection:bg-red-500 selection:text-white">
+    <div className="min-h-screen w-screen bg-slate-950 text-white overflow-x-hidden overflow-y-auto font-sans antialiased selection:bg-red-500 selection:text-white">
       <TvNavigationController />
       {!isPlayer && <Sidebar />}
       <BackButton />

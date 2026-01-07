@@ -32,7 +32,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, onClick, className = '' })
 
   return (
     <div
-      className={`focusable tv-focus relative flex-shrink-0 w-48 md:w-56 aspect-[2/3] rounded-lg overflow-hidden cursor-pointer group bg-gray-800 border-2 border-transparent focus:border-white focus:z-20 ${className}`}
+      className={`focusable tv-focus relative flex-shrink-0 aspect-[2/3] rounded-lg overflow-hidden cursor-pointer group bg-gray-800 border-2 border-transparent focus:border-white focus:z-20 ${className}`}
       onClick={onClick}
       role="button"
       tabIndex={0}

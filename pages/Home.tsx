@@ -24,7 +24,7 @@ const Home: React.FC = () => {
         api.getPopular(),
         api.getTopRated()
       ]);
-      
+
       setTrending(trend);
       setPopular(pop);
       setTopRated(top);
@@ -51,11 +51,11 @@ const Home: React.FC = () => {
   // Auto focus the Play button on load
   useEffect(() => {
     if (!loading && heroMovie) {
-        const timer = setTimeout(() => {
-            const playBtn = document.getElementById('hero-play-btn');
-            if (playBtn) playBtn.focus();
-        }, 100);
-        return () => clearTimeout(timer);
+      const timer = setTimeout(() => {
+        const playBtn = document.getElementById('hero-play-btn');
+        if (playBtn) playBtn.focus();
+      }, 100);
+      return () => clearTimeout(timer);
     }
   }, [loading, heroMovie]);
 
@@ -71,14 +71,14 @@ const Home: React.FC = () => {
   const goToDetails = (id: number) => navigate(`/details/movie/${id}`);
 
   return (
-    <div className="min-h-screen pb-20 pl-20 bg-slate-950">
+    <div className="min-h-screen pb-20 md:pl-20 md:pb-0 bg-slate-950">
       {/* Hero Section */}
       {heroMovie && (
-        <div className="relative h-[85vh] w-full mb-8">
+        <div className="relative h-[65vh] md:h-[85vh] w-full mb-8">
           {/* Backdrop */}
           <div className="absolute inset-0">
-            <img 
-              src={getImageUrl(heroMovie.backdrop_path)} 
+            <img
+              src={getImageUrl(heroMovie.backdrop_path)}
               alt={heroMovie.title}
               className="w-full h-full object-cover"
             />
@@ -87,25 +87,25 @@ const Home: React.FC = () => {
           </div>
 
           {/* Hero Content */}
-          <div className="relative z-10 h-full flex flex-col justify-end pb-24 px-12 max-w-4xl">
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 drop-shadow-lg leading-tight">
+          <div className="relative z-10 h-full flex flex-col justify-end pb-12 md:pb-24 px-6 md:px-12 max-w-4xl">
+            <h1 className="text-3xl md:text-5xl lg:text-7xl font-bold text-white mb-4 drop-shadow-lg leading-tight">
               {heroMovie.title}
             </h1>
             <p className="text-gray-300 text-lg md:text-xl line-clamp-3 mb-8 max-w-2xl drop-shadow-md">
               {heroMovie.overview}
             </p>
-            
+
             <div className="flex gap-4">
-              <TvButton 
+              <TvButton
                 id="hero-play-btn"
-                variant="primary" 
+                variant="primary"
                 icon={<Play fill="currentColor" />}
                 onClick={() => goToDetails(heroMovie.id)}
               >
                 Details
               </TvButton>
-              <TvButton 
-                variant="glass" 
+              <TvButton
+                variant="glass"
                 icon={<Info />}
                 onClick={() => goToDetails(heroMovie.id)}
               >
@@ -120,10 +120,10 @@ const Home: React.FC = () => {
       <div className="space-y-4 -mt-16 relative z-20">
         {watchlist.length > 0 && (
           <Row title="My Watchlist" movies={watchlist} onMovieSelect={(id) => {
-             // Check if stored item has media_type, default to movie if not (legacy)
-             const item = watchlist.find(m => m.id === id);
-             const type = item?.media_type || 'movie';
-             navigate(`/details/${type}/${id}`);
+            // Check if stored item has media_type, default to movie if not (legacy)
+            const item = watchlist.find(m => m.id === id);
+            const type = item?.media_type || 'movie';
+            navigate(`/details/${type}/${id}`);
           }} />
         )}
         <Row title="Trending Now" movies={trending} onMovieSelect={goToDetails} />

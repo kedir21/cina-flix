@@ -14,10 +14,11 @@ const Row: React.FC<RowProps> = ({ title, movies, onMovieSelect }) => {
       <h2 className="text-2xl font-bold text-gray-100 mb-6 tracking-wide pl-1">{title}</h2>
       <div className="flex gap-6 overflow-x-auto no-scrollbar py-4 px-1 scroll-smooth">
         {movies.map((movie) => (
-          <MovieCard 
-            key={movie.id} 
-            movie={movie} 
-            onClick={() => onMovieSelect(movie.id)} 
+          <MovieCard
+            key={movie.id}
+            movie={movie}
+            onClick={() => onMovieSelect(movie.id)}
+            className="w-36 md:w-48 lg:w-56"
           />
         ))}
         {/* Spacer for end of row */}

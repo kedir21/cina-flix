@@ -12,18 +12,18 @@ const Movies: React.FC = () => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
-  
+
   const observer = useRef<IntersectionObserver | null>(null);
   const lastElementRef = useCallback((node: HTMLDivElement) => {
     if (loading) return;
     if (observer.current) observer.current.disconnect();
-    
+
     observer.current = new IntersectionObserver(entries => {
       if (entries[0].isIntersecting && hasMore) {
         setPage(prev => prev + 1);
       }
     });
-    
+
     if (node) observer.current.observe(node);
   }, [loading, hasMore]);
 
@@ -69,20 +69,19 @@ const Movies: React.FC = () => {
   }, [page, selectedGenre]);
 
   return (
-    <div className="min-h-screen bg-slate-950 pl-24 pt-8 pr-8 pb-12">
+    <div className="min-h-screen bg-slate-950 pb-20 pt-8 px-4 md:pl-24 md:pt-8 md:pr-8 md:pb-12">
       <h1 className="text-4xl font-bold mb-6 text-white">Movies</h1>
-      
+
       {/* Genre Filter */}
       <div className="flex gap-3 overflow-x-auto no-scrollbar mb-8 py-2">
         {genres.map(genre => (
           <button
             key={genre.id}
             onClick={() => setSelectedGenre(genre.id)}
-            className={`focusable tv-focus whitespace-nowrap px-6 py-2 rounded-full text-sm font-semibold transition-all ${
-              selectedGenre === genre.id 
-                ? 'bg-red-600 text-white' 
+            className={`focusable tv-focus whitespace-nowrap px-6 py-2 rounded-full text-sm font-semibold transition-all ${selectedGenre === genre.id
+                ? 'bg-red-600 text-white'
                 : 'bg-white/10 text-gray-300 hover:bg-white/20'
-            }`}
+              }`}
           >
             {genre.name}
           </button>
@@ -95,19 +94,19 @@ const Movies: React.FC = () => {
           if (movies.length === index + 1) {
             return (
               <div ref={lastElementRef} key={`${movie.id}-${index}`}>
-                <MovieCard 
-                  movie={movie} 
-                  onClick={() => navigate(`/details/movie/${movie.id}`)} 
+                <MovieCard
+                  movie={movie}
+                  onClick={() => navigate(`/details/movie/${movie.id}`)}
                   className="w-full h-full"
                 />
               </div>
             );
           } else {
             return (
-              <MovieCard 
-                key={`${movie.id}-${index}`} 
-                movie={movie} 
-                onClick={() => navigate(`/details/movie/${movie.id}`)} 
+              <MovieCard
+                key={`${movie.id}-${index}`}
+                movie={movie}
+                onClick={() => navigate(`/details/movie/${movie.id}`)}
                 className="w-full h-full"
               />
             );

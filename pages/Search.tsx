@@ -17,13 +17,13 @@ const Search: React.FC = () => {
   const lastElementRef = useCallback((node: HTMLDivElement) => {
     if (loading) return;
     if (observer.current) observer.current.disconnect();
-    
+
     observer.current = new IntersectionObserver(entries => {
       if (entries[0].isIntersecting && hasMore) {
         setPage(prev => prev + 1);
       }
     });
-    
+
     if (node) observer.current.observe(node);
   }, [loading, hasMore]);
 
@@ -73,10 +73,10 @@ const Search: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-950 pl-24 pt-12 pr-12 pb-12">
+    <div className="min-h-screen bg-slate-950 pb-20 pt-12 px-6 md:pl-24 md:pt-12 md:pr-12 md:pb-12">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-4xl font-bold mb-8">Search</h1>
-        
+
         {/* Search Bar */}
         <div className="relative mb-12 max-w-2xl">
           <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
@@ -95,28 +95,28 @@ const Search: React.FC = () => {
 
         {/* Results Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
-            {results.map((item, index) => {
-              const uniqueKey = `${item.id}-${item.media_type}-${index}`;
-              const isLast = results.length === index + 1;
-              const detailsPath = `/details/${item.media_type || 'movie'}/${item.id}`;
-              
-              if (isLast) {
-                 return (
-                  <div ref={lastElementRef} key={uniqueKey}>
-                     <MovieCard movie={item} onClick={() => navigate(detailsPath)} className="w-full aspect-[2/3]" />
-                  </div>
-                 );
-              }
+          {results.map((item, index) => {
+            const uniqueKey = `${item.id}-${item.media_type}-${index}`;
+            const isLast = results.length === index + 1;
+            const detailsPath = `/details/${item.media_type || 'movie'}/${item.id}`;
+
+            if (isLast) {
               return (
-                <MovieCard key={uniqueKey} movie={item} onClick={() => navigate(detailsPath)} className="w-full aspect-[2/3]" />
+                <div ref={lastElementRef} key={uniqueKey}>
+                  <MovieCard movie={item} onClick={() => navigate(detailsPath)} className="w-full aspect-[2/3]" />
+                </div>
               );
-            })}
+            }
+            return (
+              <MovieCard key={uniqueKey} movie={item} onClick={() => navigate(detailsPath)} className="w-full aspect-[2/3]" />
+            );
+          })}
         </div>
-        
+
         {loading && (
-           <div className="flex justify-center py-10 w-full">
-              <div className="w-10 h-10 border-4 border-white/30 border-t-white rounded-full animate-spin"></div>
-           </div>
+          <div className="flex justify-center py-10 w-full">
+            <div className="w-10 h-10 border-4 border-white/30 border-t-white rounded-full animate-spin"></div>
+          </div>
         )}
 
         {!loading && query && results.length === 0 && (
