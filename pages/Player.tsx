@@ -61,16 +61,16 @@ const Player: React.FC = () => {
   const getEmbedUrl = () => {
     if (source === 'rivestream') {
       if (type === 'tv') {
-        return `https://rivestream.org/embed?type=tv&id=${id}&season=${season}&episode=${episode}`;
+        return `https://rivestream.org/embed?type=tv&id=${id}&season=${season}&episode=${episode}&autoplay=1`;
       }
-      return `https://rivestream.org/embed?type=movie&id=${id}`;
+      return `https://rivestream.org/embed?type=movie&id=${id}&autoplay=1`;
     }
 
     // Vidsrc fallback logic
     if (type === 'tv') {
-      return `https://vidsrc.cc/v2/embed/tv/${id}/${season}/${episode}`;
+      return `https://vidsrc.cc/v2/embed/tv/${id}/${season}/${episode}?autoPlay=true`;
     }
-    return `https://vidsrc.cc/v2/embed/movie/${id}`;
+    return `https://vidsrc.cc/v2/embed/movie/${id}?autoPlay=true`;
   };
 
   return (
@@ -88,44 +88,47 @@ const Player: React.FC = () => {
       />
 
       {/* Overlay UI */}
+      {/* Persistent UI (Back Button & Info) */}
+      <div className="absolute top-0 left-0 p-8 z-20 pointer-events-auto flex items-center gap-4">
+        <button
+          id="player-back-btn"
+          onClick={() => navigate(-1)}
+          className="focusable tv-focus flex items-center gap-3 text-white px-6 py-3 rounded-lg bg-black/60 hover:bg-white/20 transition-all focus:ring-2 focus:ring-white focus:outline-none"
+        >
+          <ArrowLeft />
+          <span className="font-semibold tracking-wide">Back</span>
+        </button>
+
+        {type === 'tv' && (
+          <div className="px-6 py-3 rounded-lg bg-black/80 text-white font-mono border border-white/10">
+            S{season} : E{episode}
+          </div>
+        )}
+      </div>
+
+      {/* Auto-hiding Controls (Source Selector & Gradient) */}
       <div
-        className={`absolute inset-0 pointer-events-none transition-opacity duration-500 bg-gradient-to-b from-black/80 via-transparent to-transparent h-40 ${showControls ? 'opacity-100' : 'opacity-0'}`}
+        className={`absolute inset-0 pointer-events-none transition-opacity duration-500 ${showControls ? 'opacity-100' : 'opacity-0'}`}
       >
-        <div className="p-8 pointer-events-auto flex items-start justify-between">
-          <div className="flex gap-4">
-            <button
-              id="player-back-btn"
-              onClick={() => navigate(-1)}
-              className="focusable tv-focus flex items-center gap-3 text-white px-6 py-3 rounded-lg bg-black/60 hover:bg-white/20 transition-all focus:ring-2 focus:ring-white focus:outline-none"
-            >
-              <ArrowLeft />
-              <span className="font-semibold tracking-wide">Back</span>
-            </button>
+        {/* Top Gradient */}
+        <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-black/80 via-transparent to-transparent" />
 
-            {type === 'tv' && (
-              <div className="px-6 py-3 rounded-lg bg-black/80 text-white font-mono border border-white/10">
-                S{season} : E{episode}
-              </div>
-            )}
-          </div>
-
-          {/* Source Selector */}
-          <div className="flex gap-2">
-            <button
-              onClick={() => setSource('vidsrc')}
-              className={`focusable tv-focus flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${source === 'vidsrc' ? 'bg-red-600 text-white' : 'bg-white/10 text-gray-300 hover:bg-white/20'}`}
-            >
-              <Server size={16} />
-              <span>VidSrc</span>
-            </button>
-            <button
-              onClick={() => setSource('rivestream')}
-              className={`focusable tv-focus flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${source === 'rivestream' ? 'bg-red-600 text-white' : 'bg-white/10 text-gray-300 hover:bg-white/20'}`}
-            >
-              <Server size={16} />
-              <span>RiveStream</span>
-            </button>
-          </div>
+        {/* Source Selector (Top Right) */}
+        <div className="absolute top-8 right-8 pointer-events-auto flex gap-2">
+          <button
+            onClick={() => setSource('vidsrc')}
+            className={`focusable tv-focus flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${source === 'vidsrc' ? 'bg-red-600 text-white' : 'bg-white/10 text-gray-300 hover:bg-white/20'}`}
+          >
+            <Server size={16} />
+            <span>VidSrc</span>
+          </button>
+          <button
+            onClick={() => setSource('rivestream')}
+            className={`focusable tv-focus flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${source === 'rivestream' ? 'bg-red-600 text-white' : 'bg-white/10 text-gray-300 hover:bg-white/20'}`}
+          >
+            <Server size={16} />
+            <span>RiveStream</span>
+          </button>
         </div>
       </div>
     </div>
