@@ -1,0 +1,5 @@
+{
+  "name": "CineStream TV",
+  "description": "A premium, cinematic Android TV-style streaming application using TMDB metadata and iframe-based playback. Optimized for remote control navigation.",
+  "requestFramePermissions": []
+}

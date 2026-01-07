@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">cinestream-tv</string>
+    <string name="title_activity_main">cinestream-tv</string>
+    <string name="package_name">com.cinestream.tv</string>
+    <string name="custom_url_scheme">com.cinestream.tv</string>
+</resources>
